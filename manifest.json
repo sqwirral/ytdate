@@ -1,20 +1,33 @@
 {
 
   "manifest_version": 2,
-  "name": "Twitch Border",
+  "name": "Youtube to Clipboard",
   "version": "1.0",
 
-  "description": "Adds a red border to all webpages matching twitch.tv.",
+  "description": "Copies a Youtube video's information to the Windows clipboard.",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "64": "icons/yt2clip-64.png"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.twitch.tv/*"],
-      "js": ["app.js"]
+  "permissions": ["tabs", "contextMenus", "clipboardWrite"],
+
+  "background": {
+    "scripts": ["app.js"]
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "yt2clip@example.com"
     }
-  ]
+  },
+
+  "content_scripts": [],
+
+  "browser_action": {
+    "default_icon": {
+      "64": "icons/yt2clip-64.png"
+    }
+  }
   
 }
