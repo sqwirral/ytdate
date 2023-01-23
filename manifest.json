@@ -2,23 +2,45 @@
   "manifest_version": 2,
   "name": "Youtube to Clipboard",
   "version": "1.0",
+
   "description": "Copies a Youtube video's information to the Windows clipboard.",
+  "homepage_url": "https://github.com/sqwirral/yt2clip",
   "icons": {
     "64": "icons/yt2clip-64.png"
   },
-  "permissions": ["tabs", "contextMenus", "clipboardWrite"],
-  "background": {
-    "scripts": ["app.js"]
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "yt2clip@example.com"
-    }
-  },
-  "content_scripts": [],
+
+  "permissions": [
+    "activeTab",
+    "tabs", 
+    "contextMenus", 
+    "clipboardWrite"
+  ],
+
   "browser_action": {
     "default_icon": {
       "64": "icons/yt2clip-64.png"
+    },
+    "default_title": "Youtube to Clipboard",
+    "default_popup": "popup/blah.html"
+  },
+
+  "web_accessible_resources": [
+    "images/1.jpg",
+    "images/2.jpg",
+    "images/3.jpg"
+  ],
+
+  "background": {
+    "scripts": ["app.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://developer.mozilla.org/*",
+        "https://www.youtube.com/*"
+      ],
+      "js": ["app2.js"]
     }
-  }
+  ]
 }
