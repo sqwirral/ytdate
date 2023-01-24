@@ -11,8 +11,6 @@
 
   "permissions": [
     "activeTab",
-    "tabs", 
-    "contextMenus", 
     "clipboardWrite"
   ],
 
@@ -22,10 +20,6 @@
     },
     "default_title": "Youtube to Clipboard",
     "default_popup": "popup/popup.html"
-  },
-
-  "background": {
-    "scripts": ["app.js"]
   },
 
   "content_scripts": [
