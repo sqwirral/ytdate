@@ -22,13 +22,13 @@
     "default_popup": "popup/popup.html"
   },
 
+  "web_accessible_resources": ["icons/yt2clip-64.png"],
+
   "content_scripts": [
     {
-      "matches": [
-        "https://developer.mozilla.org/*",
-        "https://www.youtube.com/*"
-      ],
-      "js": ["app2.js"]
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content_scripts/yt-button.js"],
+      "css": ["content_scripts/yt-button.css"]
     }
   ]
 }

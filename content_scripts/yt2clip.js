@@ -2,6 +2,7 @@
   /**
    * copy video info when button is clicked, and show confirmation.
    * date sucks right now, it's their rounded version, not the full date.
+   * actually date IS full if you click to view it first on yt
    */
   function runStuff() {
     const title = document.querySelector("#title h1").innerText;
@@ -24,7 +25,7 @@
     //console.log(ytInitialData);
     // ^ console days the above isn't defined. i can see it as a js var object in the youtube code but i guess i can't access that var with my script. dang. can't use it in the popup.js either.
 
-    // you can change the date here, it works but first i figure out how to obtain the real date
+    // you can change the date here, it works but first i need to figure out how to obtain the real date
     //const dateToChange = document.querySelector("#info span:nth-child(3)");
     //dateToChange.innerText = "hola amigo";
   }

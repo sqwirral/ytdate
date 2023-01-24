@@ -1,0 +1,15 @@
+#yt2clip-but {
+  cursor: pointer;
+  background: #272727;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+#yt2clip-but:hover,
+#yt2clip-but:focus {
+  background: #3f3f3f;
+}
+
+#yt2clip-but:active {
+  background: #00be00;
+}
