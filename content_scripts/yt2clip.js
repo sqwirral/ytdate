@@ -19,6 +19,14 @@
 
     const confirmation = document.querySelector("#title h1");
     confirmation.innerText += " [*COPIED INFO!*]";
+
+    //const simpledate = document.querySelector("ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText");
+    //console.log(ytInitialData);
+    // ^ console days the above isn't defined. i can see it as a js var object in the youtube code but i guess i can't access that var with my script. dang. can't use it in the popup.js either.
+
+    // you can change the date here, it works but first i figure out how to obtain the real date
+    //const dateToChange = document.querySelector("#info span:nth-child(3)");
+    //dateToChange.innerText = "hola amigo";
   }
 
   /**

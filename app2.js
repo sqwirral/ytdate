@@ -1,9 +1,9 @@
 // '<p class="gameId" data-id="' . html($d['id']) . '"></p>';
 
 
-let blah = document.createElement('h1');
-blah.textContent = "This page has been eaten";
-document.body.appendChild(blah);
+// let blah = document.createElement('h1');
+// blah.textContent = "This page has been eaten";
+// document.body.appendChild(blah);
 
 
 
