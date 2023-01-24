@@ -17,10 +17,7 @@ function listenForClicks() {
      * then send a "copy" message to the content script in the active tab.
      */
     function copyInfo(tabs) {
-      browser.tabs.sendMessage(tabs[0].id, {
-        command: "copy",
-        blahblah: "hello world!"
-      });
+      browser.tabs.sendMessage(tabs[0].id, {});
     }
 
     /**
