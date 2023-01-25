@@ -6,6 +6,10 @@ const imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 // add event listener to make function run on every page navigation
 document.addEventListener('yt-navigate-finish', process);
 
+// browser.runtime.onMessage.addListener((message) => {
+//   console.log("[yt2clip]: message received! " + message);
+// });
+
 setTimeout(process, 2000);
 
 function process() {
@@ -24,6 +28,8 @@ function process() {
   const element = document.querySelector("#notification-preference-button");
 
   console.log("[yt2clip]: element is " + element);
+
+  console.log("[yt2clip]: simple date - " + window.wrappedJSObject.ytInitialData.engagementPanels[3].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText);
 
   // only continue if element is found
   // this is the case sometimes, eg on first page load, so we don't want
@@ -54,6 +60,9 @@ function process() {
     const channel = document.querySelector("div.ytd-channel-name").innerText;
     const subs = document.querySelector("#owner-sub-count").innerText;
     const date = document.querySelector("#info span:nth-child(3)").innerText;
+    // let date = document
+    //     .querySelector("#watch7-content > meta[itemprop=datePublished")
+    //     .getAttribute('content');
     const views = document.querySelector("#info span").innerText;
     const time = document.querySelector("span.ytp-time-duration").innerText;
 
