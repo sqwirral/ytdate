@@ -1,11 +1,43 @@
+console.log("[yt2clip]: yt-buttons.js started!");
 
+// get url to the image in our extension
 const imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 
+// add event listener to make function run on every page navigation
 document.addEventListener('yt-navigate-finish', process);
 
 function process() {
-  const element = document.querySelector(".add-to-collection-button-new");
-  console.log("element: " + element);
+  
+  console.log("[yt2clip]: process function entered!");
+
+  // check if this is a watch page
+  if ('/watch' === location.pathname) {
+    console.log("[yt2clip]: hey, it's a watch page!");
+  } else {
+    console.log("[yt2clip]: not a watch page, exiting...");
+    return;
+  }
+
+  // find an element on the page to add our html next to
+  const element = document.querySelector("#notification-preference-button");
+
+  console.log("[yt2clip]: element is " + element);
+
+  // only continue if element is found
+  // this is the case sometimes, eg on first page load, so we don't want
+  // to carry on and set hasRun to true in that case.
+  // also only continue if we haven't already made a button, eg hasRun is set,
+  // otherwise we end up with lots of buttons.
+  if (window.hasRun || element == null) {
+    console.log("[yt2clip]: exiting...");
+    return;
+  }
+  window.hasRun = true;
+
+  // go ahead and make the button
+
+  console.log("[yt2clip]: creating button");
+
   element.insertAdjacentHTML('afterend', 
       '<div id="yt2clip-but"><img src="' 
       + imgURL + '" width="16" height="16"></div>');
@@ -13,7 +45,7 @@ function process() {
   const button = document.querySelector("#yt2clip-but");
   button.addEventListener('click', event => {
 
-    alert("You clicked da ting.");
+    console.log("[yt2clip]: you clicked da ting");
 
     const title = document.querySelector("#title h1").innerText;
     const url = window.location.href;
