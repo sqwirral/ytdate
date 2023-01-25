@@ -62,7 +62,7 @@ function process() {
     
     navigator.clipboard.writeText(text);
 
-    const confirmation = document.querySelector("#title h1");
-    confirmation.innerText += " [*COPIED INFO!*]";
+    // const confirmation = document.querySelector("#title h1");
+    // confirmation.innerText += " [*COPIED INFO!*]";
   })
 }

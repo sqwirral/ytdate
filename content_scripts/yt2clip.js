@@ -18,8 +18,8 @@
     
     navigator.clipboard.writeText(text);
 
-    const confirmation = document.querySelector("#title h1");
-    confirmation.innerText += " [*COPIED INFO!*]";
+    // const confirmation = document.querySelector("#title h1");
+    // confirmation.innerText += " [*COPIED INFO!*]";
 
     //const simpledate = document.querySelector("ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText");
     //console.log(ytInitialData);
