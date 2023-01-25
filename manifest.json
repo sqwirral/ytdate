@@ -22,7 +22,10 @@
     "default_popup": "popup/popup.html"
   },
 
-  "web_accessible_resources": ["icons/yt2clip-64.png"],
+  "web_accessible_resources": [
+    "icons/yt2clip-64.png",
+    "popup/button-arrow.png"
+  ],
 
   "content_scripts": [
     {
