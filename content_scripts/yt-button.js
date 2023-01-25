@@ -1,5 +1,5 @@
 console.log("[yt2clip]: yt-buttons.js loaded");
-  
+
 // declare global vars
 let imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 let hasRun = false;
@@ -72,27 +72,27 @@ function createButton() {
     const url = window.location.href;
     const channel = document.querySelector("div.ytd-channel-name").innerText;
     const subs = document.querySelector("#owner-sub-count").innerText;
-    // const date = document.querySelector("#info span:nth-child(3)").innerText;
-    // let date = document
-    //     .querySelector("#watch7-content > meta[itemprop=datePublished")
-    //     .getAttribute('content');
-
-    let datewhy;
-    console.log("[yt2clip]: checking date...");
-    if (typeof window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText !== 'undefined') {
-      console.log("[yt2clip]: got proper date");
-      datewhy = window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText;
-    } else {
-      console.log("[yt2clip]: proper date not found, using fallback");
-      datewhy = document.querySelector("#info span:nth-child(3)").innerText;
-    }
-    console.log("[yt2clip]: date check completed = " + datewhy);
     const views = document.querySelector("#info span").innerText;
     const time = document.querySelector("span.ytp-time-duration").innerText;
 
+    // extra stuff for date
+    console.log("[yt2clip]: checking date...");
+    let date;
+    if (typeof window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer !== 'undefined') {
+      console.log("[yt2clip]: got proper date via engagementPanels[2]");
+      date = window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText;
+    } else if (typeof window.wrappedJSObject.ytInitialData.engagementPanels[3].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer !== 'undefined') {
+      console.log("[yt2clip]: got proper date via engagementPanels[3]");
+      date = window.wrappedJSObject.ytInitialData.engagementPanels[3].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText;
+    } else {
+      console.log("[yt2clip]: proper date not found, using fallback");
+      date = document.querySelector("#info span:nth-child(3)").innerText;
+    }
+    console.log("[yt2clip]: date check completed");
+
     // build text
     const text = title + "\n" + url + "\n" + channel + " (" + subs + ") - " 
-                  + views + " - " + datewhy + " - " + time;
+                  + views + " - " + date + " - " + time;
     
     // write text to clipboard
     navigator.clipboard.writeText(text);
