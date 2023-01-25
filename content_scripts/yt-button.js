@@ -6,6 +6,8 @@ const imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 // add event listener to make function run on every page navigation
 document.addEventListener('yt-navigate-finish', process);
 
+setTimeout(process, 2000);
+
 function process() {
   
   console.log("[yt2clip]: process function entered!");
