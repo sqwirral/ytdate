@@ -3,7 +3,6 @@ console.log("[yt2clip]: yt-buttons.js loaded");
 // declare global vars
 let imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 let hasRun = false;
-let metadata;
 
 // add event listener to make function run on every page navigation
 // also without this i had problems with my /watch check even on first load
@@ -36,15 +35,29 @@ function createButton() {
   
   console.log("[yt2clip]: create button function entered");
 
-  // replace date
   // metadata should be a string like "31,448 views • Jan 6, 2021"
-  // needs to be trimmed due to line break and whitespace at the start
-  metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText.trim();
+  const metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
   console.log("[yt2clip]: found metadata");
+
+  // split metadata and trim due to line break and whitespace at the start
+  const splitmeta = metadata.split("•");
+  const views = splitmeta[0].trim();
+  const date = splitmeta[1].trim();
+  console.log("[yt2clip]: views = " + views);
+  console.log("[yt2clip]: date = " + date);
+
+  // save old style views (1 year ago, etc) in case we want it
+  const oldViews = document.querySelector("yt-formatted-string#info span").innerText;
+
+  // replace info with metadata
   const info = document.querySelector("yt-formatted-string#info");
   console.log("[yt2clip]: found info");
   info.innerHTML = '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
-                  + metadata + '</span';
+                  + oldViews + '</span>' + 
+                  '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
+                  + '&nbsp;&nbsp;' + '</span>' + 
+                  '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
+                  + date + '</span>';
   console.log("[yt2clip]: replaced info with metadata");
 
   // find an element on the page to add our html next to
@@ -76,17 +89,11 @@ function createButton() {
     const url = window.location.href;
     const channel = document.querySelector("div.ytd-channel-name").innerText;
     const subs = document.querySelector("#owner-sub-count").innerText;
-    const views = document.querySelector("#info span").innerText;
     const time = document.querySelector("span.ytp-time-duration").innerText;
-
-    // new date attempt
-    //let metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
-    const dateSplit = metadata.split(" ");
-    const date = dateSplit[3] + " " + dateSplit[4] + " " + dateSplit[5];
 
     // build text
     const text = title + "\n" + url + "\n" + channel + " (" + subs + ") - " 
-                  + views + " - " + date + " - " + time;
+                  + oldViews + " - " + date + " - " + time;
     
     // write text to clipboard
     navigator.clipboard.writeText(text);
