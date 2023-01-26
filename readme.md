@@ -2,11 +2,11 @@
 
 Firefox extension.
 
-Replaces date on video page with proper date.
+Replaces published date on Youtube video pages with the proper date.
 
 ![image](popup/yt2clip-datefix.png)
 
-Also adds button to copy Youtube video information (title, URL, channel, date, length, etc) to Windows clipboard as plain text.
+Also adds a button to copy Youtube video information (title, URL, channel, date, length, etc) to the Windows clipboard as plain text.
 
 ![image](popup/yt2clip-button.png)
 
