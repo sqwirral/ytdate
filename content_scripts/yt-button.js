@@ -43,27 +43,18 @@ function createButton() {
   const splitmeta = metadata.split("•");
   const views = splitmeta[0].trim();
   const date = splitmeta[1].trim();
-  console.log("[yt2clip]: views = " + views);
-  console.log("[yt2clip]: date = " + date);
+
+  // replace date with proper one
+  const oldDate = document.querySelector("yt-formatted-string#info span:nth-child(3)");
+  oldDate.innerText = date;
 
   // save old style views (1 year ago, etc) in case we want it
   const oldViews = document.querySelector("yt-formatted-string#info span").innerText;
 
-  // replace info with metadata
-  const info = document.querySelector("yt-formatted-string#info");
-  console.log("[yt2clip]: found info");
-  info.innerHTML = '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
-                  + oldViews + '</span>' + 
-                  '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
-                  + '&nbsp;&nbsp;' + '</span>' + 
-                  '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
-                  + date + '</span>';
-  console.log("[yt2clip]: replaced info with metadata");
+  console.log("[yt2clip]: replaced date");
 
   // find an element on the page to add our html next to
   const element = document.querySelector("#notification-preference-button");
-
-  console.log("[yt2clip]: found element " + element);
 
   // only continue if element is found
   if (element == null) {
@@ -77,6 +68,15 @@ function createButton() {
   element.insertAdjacentHTML('afterend', 
       '<div id="yt2clip-but"><img src="' 
       + imgURL + '" width="16" height="16"></div>');
+
+  // sanitized version, working but button is in the wrong place
+  // html = '<div id="yt2clip-but"><img src="' 
+  //     + imgURL + '" width="16" height="16"></div>';
+  // console.log("[yt2clip]: 1");
+  // parsed = parser.parseFromString(html, 'text/html');
+  // console.log("[yt2clip]: 2");
+  // element.appendChild(parsed.body.firstChild);
+  // console.log("[yt2clip]: 3");
 
   // add event listener to button
   const button = document.querySelector("#yt2clip-but");
