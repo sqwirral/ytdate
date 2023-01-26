@@ -30,10 +30,10 @@ function start() {
   // only continue if we haven't already made a button, eg if this is a new
   // page load. our date doesn't work after page navigation so we only want to
   // show the button on a new page load.
-  if (hasRun) {
-    console.log("[yt2clip]: not a new page load, exiting...");
-    return;
-  }
+  // if (hasRun) {
+  //   console.log("[yt2clip]: not a new page load, exiting...");
+  //   return;
+  // }
 
   // wait a few secs before trying to create button, because youtube is weird
   setTimeout(createButton, 2000);
@@ -75,20 +75,12 @@ function createButton() {
     const views = document.querySelector("#info span").innerText;
     const time = document.querySelector("span.ytp-time-duration").innerText;
 
-    // extra stuff for date
-    console.log("[yt2clip]: checking date...");
-    let date;
-    if (typeof window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer !== 'undefined') {
-      console.log("[yt2clip]: got proper date via engagementPanels[2]");
-      date = window.wrappedJSObject.ytInitialData.engagementPanels[2].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText;
-    } else if (typeof window.wrappedJSObject.ytInitialData.engagementPanels[3].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer !== 'undefined') {
-      console.log("[yt2clip]: got proper date via engagementPanels[3]");
-      date = window.wrappedJSObject.ytInitialData.engagementPanels[3].engagementPanelSectionListRenderer.content.structuredDescriptionContentRenderer.items[0].videoDescriptionHeaderRenderer.publishDate.simpleText;
-    } else {
-      console.log("[yt2clip]: proper date not found, using fallback");
-      date = document.querySelector("#info span:nth-child(3)").innerText;
-    }
-    console.log("[yt2clip]: date check completed");
+    // new date attempt
+    // metadata should be a string like "31,448 views • Jan 6, 2021"
+    // needs to be trimmed due to line break and whitespace at the start
+    let metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
+    const words = metadata.trim().split(" ");
+    const date = words[3] + " " + words[4] + " " + words[5];
 
     // build text
     const text = title + "\n" + url + "\n" + channel + " (" + subs + ") - " 
@@ -104,7 +96,7 @@ function createButton() {
   // flag that we've already run this, to stop it from creating a button on
   // next page navigation. because of how we get the video date, it's only
   // accurate on first page load, so we only want to show the button then.
-  hasRun = true;
+  //hasRun = true;
 
   console.log("[yt2clip]: button now created");
 }
