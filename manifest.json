@@ -3,7 +3,7 @@
   "name": "Youtube to Clipboard",
   "version": "1.0",
 
-  "description": "Copies a Youtube video's information to the Windows clipboard.",
+  "description": "Replaces date on Youtube video pages, and adds a button to copy a Youtube video's information to the Windows clipboard.",
   "homepage_url": "https://github.com/sqwirral/yt2clip",
   "icons": {
     "64": "icons/yt2clip-64.png"

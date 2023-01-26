@@ -6,18 +6,18 @@ let hasRun = false;
 
 // add event listener to make function run on every page navigation
 // also without this i had problems with my /watch check even on first load
-document.addEventListener('yt-navigate-finish', start);
+document.addEventListener("yt-navigate-finish", start);
 
 function start() {
 
   console.log("[yt2clip]: start function entered");
   
   // check if this is a watch page
-  if ('/watch' === location.pathname) {
-    console.log("[yt2clip]: ooh, it's a watch page!");
-  } else {
+  if (location.pathname !== "/watch") {
     console.log("[yt2clip]: not a watch page, exiting...");
     return;
+  } else {
+    console.log("[yt2clip]: ooh, it's a watch page!");
   }
 
   // remove button if it already exists
@@ -64,22 +64,15 @@ function createButton() {
 
   console.log("[yt2clip]: creating button");
 
-  // create button
-  element.insertAdjacentHTML('afterend', 
-      '<div id="yt2clip-but"><img src="' 
-      + imgURL + '" width="16" height="16"></div>');
+  // add button, convoluted method so that it's sanitized for mozilla's test
+  const button = document.createElement("div");
+  button.id = "yt2clip-but";
+  const html = '<img src="' + imgURL + '" width="16" height="16">';
+  const parser = new DOMParser();
+  button.appendChild(parser.parseFromString(html, "text/html").body.firstChild)
+  element.insertAdjacentElement("afterend", button);
 
-  // sanitized version, working but button is in the wrong place
-  // html = '<div id="yt2clip-but"><img src="' 
-  //     + imgURL + '" width="16" height="16"></div>';
-  // console.log("[yt2clip]: 1");
-  // parsed = parser.parseFromString(html, 'text/html');
-  // console.log("[yt2clip]: 2");
-  // element.appendChild(parsed.body.firstChild);
-  // console.log("[yt2clip]: 3");
-
-  // add event listener to button
-  const button = document.querySelector("#yt2clip-but");
+  // add event listener
   button.addEventListener('click', event => {
 
     console.log("[yt2clip]: button clicked!");
@@ -102,5 +95,5 @@ function createButton() {
     console.log(text);
   });
 
-  console.log("[yt2clip]: button now created");
+  console.log("[yt2clip]: button created");
 }
