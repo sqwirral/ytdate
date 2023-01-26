@@ -3,6 +3,7 @@ console.log("[yt2clip]: yt-buttons.js loaded");
 // declare global vars
 let imgURL = browser.runtime.getURL("icons/yt2clip-64.png");
 let hasRun = false;
+let metadata;
 
 // add event listener to make function run on every page navigation
 // also without this i had problems with my /watch check even on first load
@@ -27,14 +28,6 @@ function start() {
     oldButton.remove();
   }
 
-  // only continue if we haven't already made a button, eg if this is a new
-  // page load. our date doesn't work after page navigation so we only want to
-  // show the button on a new page load.
-  // if (hasRun) {
-  //   console.log("[yt2clip]: not a new page load, exiting...");
-  //   return;
-  // }
-
   // wait a few secs before trying to create button, because youtube is weird
   setTimeout(createButton, 2000);
 }
@@ -42,6 +35,17 @@ function start() {
 function createButton() {
   
   console.log("[yt2clip]: create button function entered");
+
+  // replace date
+  // metadata should be a string like "31,448 views • Jan 6, 2021"
+  // needs to be trimmed due to line break and whitespace at the start
+  metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText.trim();
+  console.log("[yt2clip]: found metadata");
+  const info = document.querySelector("yt-formatted-string#info");
+  console.log("[yt2clip]: found info");
+  info.innerHTML = '<span class="style-scope yt-formatted-string bold" dir="auto" style-target="bold">' 
+                  + metadata + '</span';
+  console.log("[yt2clip]: replaced info with metadata");
 
   // find an element on the page to add our html next to
   const element = document.querySelector("#notification-preference-button");
@@ -76,11 +80,9 @@ function createButton() {
     const time = document.querySelector("span.ytp-time-duration").innerText;
 
     // new date attempt
-    // metadata should be a string like "31,448 views • Jan 6, 2021"
-    // needs to be trimmed due to line break and whitespace at the start
-    let metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
-    const words = metadata.trim().split(" ");
-    const date = words[3] + " " + words[4] + " " + words[5];
+    //let metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
+    const dateSplit = metadata.split(" ");
+    const date = dateSplit[3] + " " + dateSplit[4] + " " + dateSplit[5];
 
     // build text
     const text = title + "\n" + url + "\n" + channel + " (" + subs + ") - " 
@@ -92,11 +94,6 @@ function createButton() {
     console.log("[yt2clip]: text copied to clipboard:");
     console.log(text);
   });
-
-  // flag that we've already run this, to stop it from creating a button on
-  // next page navigation. because of how we get the video date, it's only
-  // accurate on first page load, so we only want to show the button then.
-  //hasRun = true;
 
   console.log("[yt2clip]: button now created");
 }
