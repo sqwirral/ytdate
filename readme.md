@@ -1,8 +1,8 @@
-# Youtube Date Shower
+# Youtube Show Published Date
 
 Firefox extension.
 
-Replaces published date on Youtube video pages with the proper date.
+Shows published date on Youtube video pages.
 
 ![image](popup/ytdate-datefix.png)
 
