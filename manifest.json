@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Youtube Show Published Date",
-  "version": "1.0",
+  "version": "1.2",
 
   "description": "Shows published date on Youtube video pages.",
   "homepage_url": "https://github.com/sqwirral/ytdate",
