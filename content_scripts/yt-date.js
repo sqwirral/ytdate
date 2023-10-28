@@ -25,7 +25,8 @@ function runNow() {
   console.log("[ytdate]: runnow function entered");
 
   // metadata should be a string like "31,448 views • Jan 6, 2021"
-  const metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-metadata > div").innerText;
+  const metadata = document.querySelector("tp-yt-paper-tooltip.ytd-watch-info-text > div").innerText;
+  
   console.log("[ytdate]: found metadata");
 
   // split metadata and trim due to line break and whitespace at the start
